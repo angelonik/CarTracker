@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27520.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarTracker", "CarTracker\CarTracker.csproj", "{2F5489A8-E881-4BFA-88C4-63816CA61C7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarTracker", "CarTracker\CarTracker.csproj", "{2F5489A8-E881-4BFA-88C4-63816CA61C7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{DF7B4773-ED3D-4BE6-BFDA-3D9D9D02F188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{DF7B4773-ED3D-4BE6-BFDA-3D9D9D02F188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel", "DomainModel\DomainModel.csproj", "{49A0A191-6370-4E85-9D94-F64026B3291D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainModel", "DomainModel\DomainModel.csproj", "{49A0A191-6370-4E85-9D94-F64026B3291D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{233370F2-1E7F-45EA-800D-14E5A67B0DF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{233370F2-1E7F-45EA-800D-14E5A67B0DF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{646A3750-150B-45C9-B59F-0673FF479768}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0F7E9E73-3374-4926-9308-BD6394CFFCC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1BAAA60F-D1D4-4F77-AD7A-032DD456CEEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,21 @@ Global
 		{233370F2-1E7F-45EA-800D-14E5A67B0DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{233370F2-1E7F-45EA-800D-14E5A67B0DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{233370F2-1E7F-45EA-800D-14E5A67B0DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{646A3750-150B-45C9-B59F-0673FF479768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{646A3750-150B-45C9-B59F-0673FF479768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{646A3750-150B-45C9-B59F-0673FF479768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{646A3750-150B-45C9-B59F-0673FF479768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BAAA60F-D1D4-4F77-AD7A-032DD456CEEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BAAA60F-D1D4-4F77-AD7A-032DD456CEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BAAA60F-D1D4-4F77-AD7A-032DD456CEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BAAA60F-D1D4-4F77-AD7A-032DD456CEEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{646A3750-150B-45C9-B59F-0673FF479768} = {0F7E9E73-3374-4926-9308-BD6394CFFCC1}
+		{1BAAA60F-D1D4-4F77-AD7A-032DD456CEEB} = {0F7E9E73-3374-4926-9308-BD6394CFFCC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA8CFE44-FEF1-4A8C-A976-8E3E95563C1F}
