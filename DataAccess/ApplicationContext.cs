@@ -1,10 +1,19 @@
 ﻿using DomainModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace DataAccess
 {
     public class ApplicationContext : DbContext
     {
+        public static LoggerFactory ConsoleLoggerFactory = new LoggerFactory(new[]
+        {
+            new ConsoleLoggerProvider((category, level) => 
+                category == DbLoggerCategory.Database.Command.Name
+                && level == LogLevel.Information, true)
+        });
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options) 
             : base(options) { }
 
