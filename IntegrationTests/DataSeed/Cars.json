@@ -1,0 +1,20 @@
+﻿[
+  {
+    "Id": 1,
+    "Model": "Corvette",
+    "Year": 2016,
+    "ManufacturerId": 2
+  },
+  {
+    "Id": 2,
+    "Model": "Punto",
+    "Year": 2013,
+    "ManufacturerId": 3
+  },
+  {
+    "Id": 3,
+    "Model": "BMW M3",
+    "Year": 2018,
+    "ManufacturerId": 1
+  }
+]

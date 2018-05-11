@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "BMW",
+    "Country": "Germany"
+  },
+  {
+    "Id": 2,
+    "Name": "Chevrolet",
+    "Country": "United States"
+  },
+  {
+    "Id": 3,
+    "Name": "Fiat",
+    "Country": "Italy"
+  }
+]

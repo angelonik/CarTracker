@@ -22,11 +22,8 @@ namespace CarTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options => options
-                .UseLoggerFactory(ApplicationContext.ConsoleLoggerFactory)
-                .EnableSensitiveDataLogging(true)
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddAutoMapper();
+            ConfigureDatabase(services);
+            services.AddAutoMapper(cfg => cfg.CreateMissingTypeMaps = true);
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IManufacturerService, ManufacturerService>();
@@ -34,8 +31,16 @@ namespace CarTracker
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
+        public virtual void ConfigureDatabase(IServiceCollection services)
+        {
+            services.AddDbContext<ApplicationContext>(options => options
+                .UseLoggerFactory(ApplicationContext.ConsoleLoggerFactory)
+                .EnableSensitiveDataLogging(true)
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {

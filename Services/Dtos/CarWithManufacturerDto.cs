@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using DomainModel;
+using System;
+using System.Linq.Expressions;
 
 namespace Services.Dtos
 {
@@ -24,7 +26,7 @@ namespace Services.Dtos
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Car.Id))
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Car.Model))
                 .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.Car.Year))
-                .ForMember(dest => dest.Manufacturer, opt => opt.MapFrom(src => src.Car.Manufacturer));
+                .ForMember(dest => dest.Manufacturer, opt => opt.MapFrom(src => Mapper.Map<ManufacturerDto>(src.Car.Manufacturer)));
         }
     }
 }

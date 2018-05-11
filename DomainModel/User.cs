@@ -12,6 +12,6 @@ namespace DomainModel
 
         public string Email { get; set; }
 
-        public ICollection<UserCar> UserCars { get; set; } = new HashSet<UserCar>();
+        public IEnumerable<UserCar> UserCars { get; set; } = new List<UserCar>();
     }
 }

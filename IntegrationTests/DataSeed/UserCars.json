@@ -1,0 +1,26 @@
+﻿[
+  {
+    "Id": 1,
+    "PlateNumber": "UX-4567",
+    "CarId": 2,
+    "UserId": 1
+  },
+  {
+    "Id": 2,
+    "PlateNumber": "TF-1314",
+    "CarId": 1,
+    "UserId": 3
+  },
+  {
+    "Id": 3,
+    "PlateNumber": "AB-0006",
+    "CarId": 3,
+    "UserId": 2
+  },
+  {
+    "Id": 4,
+    "PlateNumber": "OB-1234",
+    "CarId": 1,
+    "UserId": 1
+  }
+]

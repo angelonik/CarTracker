@@ -16,6 +16,6 @@ namespace DomainModel
 
         public Manufacturer Manufacturer { get; set; }
 
-        public ICollection<UserCar> UserCars { get; set; } = new HashSet<UserCar>();
+        public IEnumerable<UserCar> UserCars { get; set; } = new List<UserCar>();
     }
 }

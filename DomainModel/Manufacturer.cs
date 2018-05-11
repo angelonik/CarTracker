@@ -12,6 +12,6 @@ namespace DomainModel
 
         public string Country { get; set; }
 
-        public ICollection<Car> Cars { get; set; } = new HashSet<Car>();
+        public IEnumerable<Car> Cars { get; set; } = new List<Car>();
     }
 }

@@ -25,6 +25,11 @@ namespace DataAccess
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
+        public string GetTableName<T>()
+        {
+            return $"dbo.{Model.FindEntityType(typeof(T)).Relational().TableName}";
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<UserCar> UserCars { get; set; }

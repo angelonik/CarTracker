@@ -1,24 +1,31 @@
-﻿using CarTracker;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using System;
 using System.Net.Http;
 using Xunit;
 
 namespace IntegrationTests
 {
-    public class ServerAndClientFixture
+    public class ServerAndClientFixture : IDisposable
     {
-        public TestServer Server { get; private set; }
-        public HttpClient Client { get; private set; }
+        public TestServer Server { get; }
+        public HttpClient Client { get; }
 
         public ServerAndClientFixture()
         {
             Server = new TestServer
             (
-                new WebHostBuilder().UseStartup<Startup>()
+                new WebHostBuilder().UseStartup<TestStartup>()
             );
 
             Client = Server.CreateClient();
+            Client.BaseAddress = new Uri("https://localhost");
+        }
+
+        public void Dispose()
+        {
+            Server?.Dispose();
+            Client?.Dispose();
         }
     }
 

@@ -13,6 +13,7 @@ namespace UnitTests
             var mappings = new MapperConfigurationExpression();
             mappings.AddProfiles(typeof(ManufacturerService).GetTypeInfo().Assembly);
             Mapper.Initialize(mappings);
+            Mapper.AssertConfigurationIsValid();
         }
     }
 

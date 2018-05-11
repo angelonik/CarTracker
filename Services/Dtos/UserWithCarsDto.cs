@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DomainModel;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Services.Dtos
 {
