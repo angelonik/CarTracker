@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
 using DataAccess;
+using Microsoft.AspNetCore.Blazor.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using Services;
+using System.Linq;
+using System.Net.Mime;
 
 namespace CarTracker
 {
@@ -28,7 +32,21 @@ namespace CarTracker
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IManufacturerService, ManufacturerService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                // needed for blazor to work
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
+
+            // added for blazor
+            services.AddResponseCompression(options =>
+            {
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+                {
+                    MediaTypeNames.Application.Octet,
+                    WasmMediaTypeNames.Application.Wasm,
+                });
+            });
         }
 
         public virtual void ConfigureDatabase(IServiceCollection services)
@@ -53,6 +71,7 @@ namespace CarTracker
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseBlazor<Client.Program>();
         }
     }
 }
