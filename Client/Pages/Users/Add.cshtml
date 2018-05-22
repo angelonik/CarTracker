@@ -1,4 +1,4 @@
-﻿@page "/users/create"
+﻿@page "/users/add"
 @inject HttpClient Http
 @using Microsoft.AspNetCore.Blazor.Browser.Interop;
 
@@ -11,8 +11,8 @@
         <label for="Email" class="control-label">Email</label>
         <input type="text" class="form-control" bind="@user.Email" />
     </div>
-    <button class="btn btn-default" onclick="@GoBack">Go Back</button>
-    <button type="submit" class="btn btn-primary" onclick="@(async () => await AddUser())">
+    <button class="btn btn-warning" onclick="@GoBack">Go Back</button>
+    <button type="submit" class="btn btn-success" onclick="@(async () => await AddUser())">
         Save
     </button>
 </form>
@@ -23,6 +23,7 @@
     protected async Task AddUser()
     {
         await Http.SendJsonAsync(HttpMethod.Post, "/api/users/", user);
+        GoBack();
     }
 
     protected void GoBack()

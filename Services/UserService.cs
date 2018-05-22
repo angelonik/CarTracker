@@ -36,5 +36,17 @@ namespace Services
             await _dbContext.AddAsync(user);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> Delete(int id)
+        {
+            var user = await _dbContext.Users.FindAsync(id);
+            if(user == null)
+            {
+                return false;
+            }
+            _dbContext.Users.Remove(user);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

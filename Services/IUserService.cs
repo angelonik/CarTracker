@@ -10,5 +10,6 @@ namespace Services
         Task<IEnumerable<UserDto>> GetAll();
         Task<UserWithCarsDto> GetUserWithCars(int id);
         Task Add(User user);
+        Task<bool> Delete(int id);
     }
 }

@@ -3,29 +3,57 @@
 
 <h2>Users</h2>
 
-<a href="/users/create" class="btn btn-primary">Add User</a>
+<a href="/users/add" class="btn btn-primary">Add User</a>
+
+<div class="divider" />
 
 @if (users == null)
 {
-    <p><em>Loading...</em></p>
+    <img src="images/loading.gif" alt="Loading..." />
 }
 else
 {
-    <table class="table">
-        <thead>
+    <table class="table table-striped">
+        <thead class="thead-dark">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in users)
+            @foreach (var user in editableUsers)
             {
                 <tr>
-                    <td>@user.Id</td>
-                    <td>@user.Name</td>
-                    <td>@user.Email</td>
+                    <td>@user.User.Id</td>
+                    <td>
+                        @if (user.Editable)
+                        {
+                            <input type="text" name="@nameof(user.User.Name)" value="@user.User.Name" class="form-control" />
+                        }
+                        else
+                        {
+                            @user.User.Name
+                        }
+                    </td>
+                    <td>
+                        @if (user.Editable)
+                        {
+                            <input type="text" name="@nameof(user.User.Email)" value="@user.User.Email" class="form-control" />
+                        }
+                        else
+                        {
+                            @user.User.Email
+                        }
+                    </td>
+                    <td>
+                        <button class="btn btn-info" onclick="@(() => Edit(user))">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="@(async () => await Delete(user.User.Id))">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -34,9 +62,29 @@ else
 
 @functions {
     User[] users;
+    UserWithEditable[] editableUsers;
 
     protected override async Task OnInitAsync()
     {
         users = await Http.GetJsonAsync<User[]>("/api/users");
+        editableUsers = users.Select(x => new UserWithEditable { User = x, Editable = false }).ToArray();
+    }
+
+    protected async Task Delete(int id)
+    {
+        await Http.DeleteAsync($"/api/users/{id}");
+        await OnInitAsync();
+        StateHasChanged();
+    }
+
+    protected void Edit(UserWithEditable user)
+    {
+        user.Editable = true;
+    }
+
+    public class UserWithEditable
+    {
+        public User User { get; set; }
+        public bool Editable { get; set; }
     }
 }

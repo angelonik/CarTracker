@@ -41,11 +41,22 @@ namespace AirFiTest.Controllers
 
         [HttpPost]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<User>> Post(User user)
+        public async Task<IActionResult> Post(User user)
         {
             await _userService.Add(user);
 
             return CreatedAtAction(nameof(Get), new { user.Id }, user);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteHero(int id)
+        {
+            var deleted = await _userService.Delete(id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+            return new NoContentResult();            
         }
     }
 }

@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\Users\Create.cshtml" />
+    <None Include="Pages\Users\Add.cshtml" />
+    <None Include="Pages\Users\Edit.cshtml" />
     <None Include="Pages\Users\Users.cshtml" />
   </ItemGroup>
 
@@ -31,11 +32,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <BlazorGenerate Remove="Pages\Users\Create.cshtml" />
+    <BlazorGenerate Remove="Pages\Users\Add.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Users\Create.cshtml" />
+    <BlazorGenerate Remove="Pages\Users\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Users\Edit.cshtml" />
   </ItemGroup>
 
 </Project>
