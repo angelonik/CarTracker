@@ -22,11 +22,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\Users.cshtml" />
+    <None Include="Pages\Users\Create.cshtml" />
+    <None Include="Pages\Users\Users.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DomainModel\DomainModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Pages\Users\Create.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Users\Create.cshtml" />
   </ItemGroup>
 
 </Project>

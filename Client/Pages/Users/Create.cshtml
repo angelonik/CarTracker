@@ -1,0 +1,32 @@
+﻿@page "/users/create"
+@inject HttpClient Http
+@using Microsoft.AspNetCore.Blazor.Browser.Interop;
+
+<form>
+    <div class="form-group">
+        <label for="Name" class="control-label">Name</label>
+        <input type="text" class="form-control" bind="@user.Name" />
+    </div>
+    <div class="form-group">
+        <label for="Email" class="control-label">Email</label>
+        <input type="text" class="form-control" bind="@user.Email" />
+    </div>
+    <button class="btn btn-default" onclick="@GoBack">Go Back</button>
+    <button type="submit" class="btn btn-primary" onclick="@(async () => await AddUser())">
+        Save
+    </button>
+</form>
+
+@functions {
+    User user = new User();
+
+    protected async Task AddUser()
+    {
+        await Http.SendJsonAsync(HttpMethod.Post, "/api/users/", user);
+    }
+
+    protected void GoBack()
+    {
+        RegisteredFunction.Invoke<bool>("goBack");
+    }
+}

@@ -12,5 +12,11 @@
     <app>Loading...</app>
 
     <script type="blazor-boot"></script>
+    <script>
+        Blazor.registerFunction('goBack', () => {
+            window.history.back();
+            return true;
+        });
+    </script>
 </body>
 </html>

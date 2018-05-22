@@ -1,10 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DomainModel;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.Dtos;
 
 namespace AirFiTest.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
@@ -15,13 +20,14 @@ namespace AirFiTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IEnumerable<UserDto>> Get()
         {
-            return Ok(await _userService.GetAll());
+            return await _userService.GetAll();
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> Get(int id)
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<UserWithCarsDto>> Get(int id)
         {
             var user = await _userService.GetUserWithCars(id);
 
@@ -30,7 +36,16 @@ namespace AirFiTest.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return user;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<User>> Post(User user)
+        {
+            await _userService.Add(user);
+
+            return CreatedAtAction(nameof(Get), new { user.Id }, user);
         }
     }
 }

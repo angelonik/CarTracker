@@ -38,10 +38,7 @@ namespace UnitTests.Controllers
             var result = await _controller.Get();
 
             // Assert
-            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var returnedUsers = okResult.Value.Should().BeAssignableTo<IEnumerable<UserDto>>().Subject;
-
-            returnedUsers.Should().BeEquivalentTo(users);
+            result.Should().BeEquivalentTo(users);
         }
 
         [Fact]
@@ -55,10 +52,7 @@ namespace UnitTests.Controllers
             var result = await _controller.Get();
 
             // Assert
-            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var returnedUsers = okResult.Value.Should().BeAssignableTo<IEnumerable<UserDto>>().Subject;
-
-            returnedUsers.Should().BeEmpty();
+            result.Should().BeEmpty();
         }
 
         [Fact]
@@ -80,10 +74,7 @@ namespace UnitTests.Controllers
             var result = await _controller.Get(userId);
 
             // Assert
-            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var returnedUser = okResult.Value.Should().BeAssignableTo<UserWithCarsDto>().Subject;
-
-            returnedUser.Should().BeEquivalentTo(user);
+            result.Value.Should().BeEquivalentTo(user);
         }
 
         [Fact]
@@ -99,7 +90,7 @@ namespace UnitTests.Controllers
             var result = await _controller.Get(userId);
 
             // Assert
-            var okResult = result.Should().BeOfType<NotFoundResult>();
+            var okResult = result.Result.Should().BeOfType<NotFoundResult>();
         }
 
     }
