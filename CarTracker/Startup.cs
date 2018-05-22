@@ -27,7 +27,7 @@ namespace CarTracker
         public void ConfigureServices(IServiceCollection services)
         {
             ConfigureDatabase(services);
-
+            services.AddAutoMapper();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IManufacturerService, ManufacturerService>();
 
