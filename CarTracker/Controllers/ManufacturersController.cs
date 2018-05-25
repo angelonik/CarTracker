@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.Dtos;
 
 namespace AirFiTest.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class ManufacturersController : Controller
     {
@@ -15,9 +18,9 @@ namespace AirFiTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IEnumerable<ManufacturerWithCarsDto>> Get()
         {
-            return Ok(await _manufacturerService.GetAllWithCars());
+            return await _manufacturerService.GetAllWithCars();
         }
     }
 }

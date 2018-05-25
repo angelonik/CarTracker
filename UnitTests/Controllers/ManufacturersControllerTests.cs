@@ -1,10 +1,8 @@
 ﻿using AirFiTest.Controllers;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Services;
 using Services.Dtos;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -38,13 +36,7 @@ namespace UnitTests.Controllers
             var result = await _controller.Get();
 
             // Assert
-            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var returnedUsers = okResult.Value
-                .Should()
-                .BeAssignableTo<IEnumerable<ManufacturerWithCarsDto>>()
-                .Subject;
-
-            returnedUsers.Should().BeEquivalentTo(manufacturers);
+            result.Should().BeEquivalentTo(manufacturers);
         }
 
         [Fact]
@@ -58,13 +50,7 @@ namespace UnitTests.Controllers
             var result = await _controller.Get();
 
             // Assert
-            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var returnedUsers = okResult.Value
-                .Should()
-                .BeAssignableTo<IEnumerable<ManufacturerWithCarsDto>>()
-                .Subject;
-
-            returnedUsers.Should().BeEmpty();
+            result.Should().BeEmpty();
         }
     }
 }

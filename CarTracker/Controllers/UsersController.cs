@@ -8,8 +8,8 @@ using Services.Dtos;
 
 namespace AirFiTest.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
