@@ -1,9 +1,9 @@
-﻿using AutoMapper.QueryableExtensions;
-using DataAccess;
+﻿using DataAccess;
 using DomainModel;
 using Microsoft.EntityFrameworkCore;
 using Services.Dtos;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Services
@@ -20,14 +20,14 @@ namespace Services
         public async Task<IEnumerable<UserDto>> GetAll()
         {
             return await _dbContext.Users
-                .ProjectTo<UserDto>()
+                .Select(UserDto.Projection())
                 .ToListAsync();
         }
 
         public async Task<UserWithCarsDto> GetUserWithCars(int id)
         {
             return await _dbContext.Users
-                .ProjectTo<UserWithCarsDto>()
+                .Select(UserWithCarsDto.Projection())
                 .FirstOrDefaultAsync(usr => usr.Id == id);
         }
 

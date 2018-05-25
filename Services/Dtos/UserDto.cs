@@ -1,5 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
 using DomainModel;
+using System.Linq.Expressions;
 
 namespace Services.Dtos
 {
@@ -10,13 +11,15 @@ namespace Services.Dtos
         public string Email { get; set; }
 
         public string Name { get; set; }
-    }
 
-    public class UserMappingProfile : Profile
-    {
-        public UserMappingProfile()
+        public static Expression<Func<User, UserDto>> Projection()
         {
-            CreateMap<User, UserDto>();
+            return x => new UserDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Email = x.Email
+            };
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
 using DomainModel;
-using Services.Extensions;
-using System;
 using System.Linq.Expressions;
 
 namespace Services.Dtos
@@ -17,17 +15,22 @@ namespace Services.Dtos
         public string PlateNumber { get; set; }
 
         public ManufacturerDto Manufacturer { get; set; }
-    }
 
-    public class CarWithManufacturerDtoProfile : Profile
-    {
-        public CarWithManufacturerDtoProfile()
+        public static Expression<Func<UserCar, CarWithManufacturerDto>> Projection()
         {
-            CreateMap<UserCar, CarWithManufacturerDto>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Car.Id))
-                .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Car.Model))
-                .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.Car.Year))
-                .ForMember(dest => dest.Manufacturer, opt => opt.MapFrom(src => src.Car.Manufacturer.MapTo<ManufacturerDto>()));
+            return x => new CarWithManufacturerDto
+            {
+                Id = x.Car.Id,
+                PlateNumber = x.PlateNumber,
+                Model = x.Car.Model,
+                Year = x.Car.Year,
+                Manufacturer = new ManufacturerDto
+                {
+                    Id = x.Car.Manufacturer.Id,
+                    Name = x.Car.Manufacturer.Name,
+                    Country = x.Car.Manufacturer.Country
+                }
+            };
         }
     }
 }

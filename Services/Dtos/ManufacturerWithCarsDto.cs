@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System;
 using DomainModel;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace Services.Dtos
 {
@@ -12,14 +14,17 @@ namespace Services.Dtos
 
         public string Country { get; set; }
 
-        public IEnumerable<CarDto> Cars { get; set; } = new HashSet<CarDto>();
-    }
+        public IEnumerable<CarDto> Cars { get; set; } = new List<CarDto>();
 
-    public class ManufacturerWithCarsDtoMappingProfile : Profile
-    {
-        public ManufacturerWithCarsDtoMappingProfile()
+        public static Expression<Func<Manufacturer, ManufacturerWithCarsDto>> Projection()
         {
-            CreateMap<Manufacturer, ManufacturerWithCarsDto>();
+            return x => new ManufacturerWithCarsDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Country = x.Country,
+                Cars = x.Cars.AsQueryable().Select(CarDto.Projection())
+            };
         }
     }
 }

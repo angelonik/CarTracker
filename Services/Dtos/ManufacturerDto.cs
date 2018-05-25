@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using DomainModel;
-
-namespace Services.Dtos
+﻿namespace Services.Dtos
 {
     public class ManufacturerDto
     {
@@ -10,13 +7,5 @@ namespace Services.Dtos
         public string Name { get; set; }
 
         public string Country { get; set; }
-    }
-
-    public class ManufacturerDtoProfile : Profile
-    {
-        public ManufacturerDtoProfile()
-        {
-            CreateMap<Manufacturer, ManufacturerDto>();
-        }
     }
 }

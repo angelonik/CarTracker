@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DataAccess;
+﻿using DataAccess;
 using Microsoft.AspNetCore.Blazor.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,25 +26,23 @@ namespace CarTracker
         public void ConfigureServices(IServiceCollection services)
         {
             ConfigureDatabase(services);
-            services.AddAutoMapper();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IManufacturerService, ManufacturerService>();
-
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                // needed for blazor to work
-                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            });
-
-            // added for blazor
-            services.AddResponseCompression(options =>
-            {
-                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+            services
+                .AddTransient<IUserService, UserService>()
+                .AddTransient<IManufacturerService, ManufacturerService>()
+                // added for blazor
+                .AddResponseCompression(options =>
                 {
-                    MediaTypeNames.Application.Octet,
-                    WasmMediaTypeNames.Application.Wasm,
+                    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+                    {
+                        MediaTypeNames.Application.Octet,
+                        WasmMediaTypeNames.Application.Wasm,
+                    });
+                })
+                .AddMvc().AddJsonOptions(options =>
+                {
+                    // needed for blazor to work
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 });
-            });
         }
 
         public virtual void ConfigureDatabase(IServiceCollection services)

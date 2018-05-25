@@ -10,7 +10,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchUrl": "api/users",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_HTTPS_PORT": "44336",
         "ASPNETCORE_ENVIRONMENT": "Development"
