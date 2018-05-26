@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using Services;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Linq;
 using System.Net.Mime;
 
@@ -38,6 +39,10 @@ namespace CarTracker
                         WasmMediaTypeNames.Application.Wasm,
                     });
                 })
+                .AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new Info { Title = "CarTracker API", Version = "v1" });
+                })
                 .AddMvc().AddJsonOptions(options =>
                 {
                     // needed for blazor to work
@@ -65,9 +70,15 @@ namespace CarTracker
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
-            app.UseBlazor<Client.Program>();
+            app
+                .UseHttpsRedirection()
+                .UseSwagger()
+                .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarTracker API V1");
+                })
+                .UseMvc()
+                .UseBlazor<Client.Program>();
         }
     }
 }
