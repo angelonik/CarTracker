@@ -5,16 +5,16 @@
 @if (editable)
 {
     <td><input type="text" bind="name" class="form-control" /></td>
-    <td><input type="text" bind="user.Email" class="form-control" /></td>
+    <td><input type="text" bind="email" class="form-control" /></td>
     <td>
         <button class="btn btn-success" onclick="@(async () => await EditSave())">Save</button>
-        <button class="btn btn-warning" onclick="@(() => { editable = false; name = user.Name;})">Cancel</button>
+        <button class="btn btn-warning" onclick="@(() => Cancel())">Cancel</button>
     </td>
 }
 else
 {
-    <td>@user.Name</td>
-    <td>@user.Email</td>
+    <td>@name</td>
+    <td>@email</td>
     <td><button class="btn btn-info" onclick="@(() => editable = true)">Edit</button></td>
 }
 
@@ -23,15 +23,25 @@ else
     User user { get; set; }
     bool editable = false;
     string name;
+    string email;
 
     protected override void OnInit()
     {
         name = user.Name;
-
+        email = user.Email;
     }
+
     protected async Task EditSave()
     {
-        await Http.PutJsonAsync($"/api/users/{user.Id}", new { name, user.Email });
+        await Http.PutJsonAsync($"/api/users/{user.Id}", new { name, email });
         editable = false;
+        user.Name = name;
+        user.Email = email;
+    }
+
+    protected void Cancel()
+    {
+        editable = false;
+        OnInit();
     }
 }
