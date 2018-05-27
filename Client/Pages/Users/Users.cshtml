@@ -3,7 +3,7 @@
 
 <h2>Users</h2>
 
-<a href="/users/add" class="btn btn-primary">Add User</a>
+<a href="/users/add" class="btn btn-primary mb-2">Add User</a>
 
 <div class="divider" />
 
@@ -16,20 +16,17 @@ else
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th style="width: 5%" scope="col">Id</th>
+                <th style="width: 30%" scope="col">Name</th>
+                <th style="width: 30%" scope="col">Email</th>
+                <th style="width: 10%" scope="col"></th>
+                <th style="width: 10%" scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var user in users)
             {
-                <tr>
-                    <UserDetailsRow user="user" />
-                    <td><button class="btn btn-danger" onclick="@(async () => await Delete(user.Id))">Delete</button></td>
-                </tr>
+                <UserDetailsRow user="user" TableChanged="@RefreshTable" />
             }
         </tbody>
     </table>
@@ -43,9 +40,8 @@ else
         users = await Http.GetJsonAsync<User[]>("/api/users");
     }
 
-    protected async Task Delete(int id)
+    protected async Task RefreshTable()
     {
-        await Http.DeleteAsync($"/api/users/{id}");
         await OnInitAsync();
         StateHasChanged();
     }
