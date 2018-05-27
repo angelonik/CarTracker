@@ -22,7 +22,7 @@
 
     protected async Task AddUser()
     {
-        await Http.SendJsonAsync(HttpMethod.Post, "/api/users/", user);
+        await Http.PostJsonAsync("/api/users/", user);
         GoBack();
     }
 

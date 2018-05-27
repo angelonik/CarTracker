@@ -33,10 +33,10 @@ else
 
     protected async Task EditSave()
     {
-        await Http.PutJsonAsync($"/api/users/{user.Id}", new { name, email });
-        editable = false;
         user.Name = name;
         user.Email = email;
+        await Http.PutJsonAsync($"/api/users/{user.Id}", user);
+        editable = false;
     }
 
     protected void Cancel()
