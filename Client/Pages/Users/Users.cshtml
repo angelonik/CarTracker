@@ -1,48 +1,25 @@
 ﻿@page "/users"
-@inject HttpClient Http
+@inherits UsersModel
 
 <h2>Users</h2>
 
 <a href="/users/add" class="btn btn-primary mb-2">Add User</a>
 
-<div class="divider" />
-
-@if (users == null)
-{
-    <img src="images/loading.gif" alt="Loading..." />
-}
-else
-{
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th style="width: 5%" scope="col">Id</th>
-                <th style="width: 30%" scope="col">Name</th>
-                <th style="width: 30%" scope="col">Email</th>
-                <th style="width: 10%" scope="col"></th>
-                <th style="width: 10%" scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in users)
-            {
-                <UserDetailsRow user="user" TableChanged="@RefreshTable" />
-            }
-        </tbody>
-    </table>
-}
-
-@functions {
-    User[] users;
-
-    protected override async Task OnInitAsync()
-    {
-        users = await Http.GetJsonAsync<User[]>("/api/users");
-    }
-
-    protected async Task RefreshTable()
-    {
-        await OnInitAsync();
-        StateHasChanged();
-    }
-}
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th style="width: 5%" scope="col">Id</th>
+            <th style="width: 30%" scope="col">Name</th>
+            <th style="width: 30%" scope="col">Email</th>
+            <th style="width: 10%" scope="col"></th>
+            <th style="width: 10%" scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Users)
+        {
+            <UserDetailsRow user="user" TableChanged="@RefreshTable" />
+        }
+    </tbody>
+</table>
+<LoadingSpinner Loading="Loading" />

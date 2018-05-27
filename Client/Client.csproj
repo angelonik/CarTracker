@@ -47,4 +47,8 @@
     <BlazorGenerate Remove="Pages\Users\UserDetailsRow.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <BlazorGenerate Remove="Shared\LoadingSpinner.cshtml" />
+  </ItemGroup>
+
 </Project>
