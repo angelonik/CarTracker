@@ -18,7 +18,7 @@
     <tbody>
         @foreach (var user in Users)
         {
-            <UserDetailsRow user="user" TableChanged="@RefreshTable" />
+            <UserDetailsRow user="user" TableChanged="@RefreshTable" StartLoadingSpinner="@StartLoadingSpinner" />
         }
     </tbody>
 </table>

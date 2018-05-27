@@ -25,5 +25,11 @@ namespace Client.Pages.Users
             await OnInitAsync();
             StateHasChanged();
         }
+
+        protected void StartLoadingSpinner()
+        {
+            Loading = true;
+            StateHasChanged();
+        }
     }
 }
