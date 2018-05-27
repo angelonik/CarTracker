@@ -1,21 +1,18 @@
 ﻿@inherits UserDetailsRowModel
 
-<tr>
-    <td>@User.Id</td>
-    @if (editable)
-    {
-        <td><input type="text" bind="name" class="form-control" /></td>
-        <td><input type="text" bind="email" class="form-control" /></td>
-        <td>
-            <button class="btn btn-success btn-sm mt-0_5" onclick="@EditSave">Save</button>
-            <button class="btn btn-warning btn-sm mt-0_5" onclick="@Cancel">Cancel</button>
-        </td>
-    }
-    else
-    {
-        <td>@name</td>
-        <td>@email</td>
-        <td><button class="btn btn-info" onclick="@EditClicked">Edit</button></td>
-    }
-    <td><button class="btn btn-danger" onclick="@Delete">Delete</button></td>
-</tr>
+<td>@User.Id</td>
+@if (editable)
+{
+    <td><input type="text" bind="name" class="form-control" /></td>
+    <td><input type="text" bind="email" class="form-control" /></td>
+    <td>
+        <button class="btn btn-success btn-sm mt-0_5" onclick="@EditSave">Save</button>
+        <button class="btn btn-warning btn-sm mt-0_5" onclick="@Cancel">Cancel</button>
+    </td>
+}
+else
+{
+    <td>@name</td>
+    <td>@email</td>
+    <td><button class="btn btn-info" onclick="@EditClicked">Edit</button></td>
+}

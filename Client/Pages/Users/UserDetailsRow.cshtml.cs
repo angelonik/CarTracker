@@ -11,8 +11,6 @@ namespace Client.Pages.Users
     {
         [Inject] protected HttpClient Http { get; set; }
         [Parameter] protected User User { get; set; }
-        [Parameter] protected Func<Task> TableChanged { get; set; }
-        [Parameter] protected Action StartLoadingSpinner { get; set; }
         protected bool editable = false;
         protected string name;
         protected string email;
@@ -40,13 +38,6 @@ namespace Client.Pages.Users
         {
             editable = false;
             OnParametersSet();
-        }
-
-        protected async Task Delete()
-        {
-            StartLoadingSpinner();
-            await Http.DeleteAsync($"/api/users/{User.Id}");
-            await TableChanged();
         }
     }
 }

@@ -18,7 +18,10 @@
     <tbody>
         @foreach (var user in Users)
         {
-            <UserDetailsRow user="user" TableChanged="@RefreshTable" StartLoadingSpinner="@StartLoadingSpinner" />
+            <tr>
+                <UserDetailsRow user="user" />
+                <td><button class="btn btn-danger" onclick="@(async () => await Delete(user.Id))">Delete</button></td>
+            </tr>
         }
     </tbody>
 </table>

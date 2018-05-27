@@ -26,10 +26,11 @@ namespace Client.Pages.Users
             StateHasChanged();
         }
 
-        protected void StartLoadingSpinner()
+        protected async Task Delete(int id)
         {
             Loading = true;
-            StateHasChanged();
+            await Http.DeleteAsync($"/api/users/{id}");
+            await RefreshTable();
         }
     }
 }
