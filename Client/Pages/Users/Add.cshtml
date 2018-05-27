@@ -12,7 +12,7 @@
         <input type="text" class="form-control" bind="@user.Email" />
     </div>
     <button class="btn btn-warning" onclick="@GoBack">Go Back</button>
-    <button type="submit" class="btn btn-success" onclick="@(async () => await AddUser())">
+    <button type="submit" class="btn btn-success" onclick="@AddUser">
         Save
     </button>
 </form>
