@@ -1,0 +1,37 @@
+﻿@inject HttpClient Http
+
+<td>@user.Id</td>
+
+@if (editable)
+{
+    <td><input type="text" bind="name" class="form-control" /></td>
+    <td><input type="text" bind="user.Email" class="form-control" /></td>
+    <td>
+        <button class="btn btn-success" onclick="@(async () => await EditSave())">Save</button>
+        <button class="btn btn-warning" onclick="@(() => { editable = false; name = user.Name;})">Cancel</button>
+    </td>
+}
+else
+{
+    <td>@user.Name</td>
+    <td>@user.Email</td>
+    <td><button class="btn btn-info" onclick="@(() => editable = true)">Edit</button></td>
+}
+
+@functions {
+    [Parameter]
+    User user { get; set; }
+    bool editable = false;
+    string name;
+
+    protected override void OnInit()
+    {
+        name = user.Name;
+
+    }
+    protected async Task EditSave()
+    {
+        await Http.PutJsonAsync($"/api/users/{user.Id}", new { name, user.Email });
+        editable = false;
+    }
+}

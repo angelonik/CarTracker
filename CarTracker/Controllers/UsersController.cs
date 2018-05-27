@@ -26,6 +26,7 @@ namespace AirFiTest.Controllers
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<UserWithCarsDto>> Get(int id)
         {
             var user = await _userService.GetUserWithCars(id);
@@ -40,14 +41,31 @@ namespace AirFiTest.Controllers
 
         [HttpPost]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Post(User user)
+        public async Task<ActionResult<UserWithCarsDto>> Post(User user)
         {
             await _userService.Add(user);
 
             return CreatedAtAction(nameof(Get), new { user.Id }, user);
         }
 
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> Update(int id, User userFromRequest)
+        {
+            var edited = await _userService.Edit(id, userFromRequest);
+            if (!edited)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
         [HttpDelete("{id:int}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> DeleteHero(int id)
         {
             var deleted = await _userService.Delete(id);
@@ -55,7 +73,7 @@ namespace AirFiTest.Controllers
             {
                 return NotFound();
             }
-            return new NoContentResult();            
+            return NoContent();
         }
     }
 }

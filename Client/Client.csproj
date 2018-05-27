@@ -43,4 +43,8 @@
     <Content Remove="Pages\Users\Edit.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <BlazorGenerate Remove="Pages\Users\UserDetailsRow.cshtml" />
+  </ItemGroup>
+
 </Project>

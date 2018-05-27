@@ -24,36 +24,11 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in editableUsers)
+            @foreach (var user in users)
             {
                 <tr>
-                    <td>@user.User.Id</td>
-                    <td>
-                        @if (user.Editable)
-                        {
-                            <input type="text" name="@nameof(user.User.Name)" value="@user.User.Name" class="form-control" />
-                        }
-                        else
-                        {
-                            @user.User.Name
-                        }
-                    </td>
-                    <td>
-                        @if (user.Editable)
-                        {
-                            <input type="text" name="@nameof(user.User.Email)" value="@user.User.Email" class="form-control" />
-                        }
-                        else
-                        {
-                            @user.User.Email
-                        }
-                    </td>
-                    <td>
-                        <button class="btn btn-info" onclick="@(() => Edit(user))">Edit</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" onclick="@(async () => await Delete(user.User.Id))">Delete</button>
-                    </td>
+                    <UserDetailsRow user="user" />
+                    <td><button class="btn btn-danger" onclick="@(async () => await Delete(user.Id))">Delete</button></td>
                 </tr>
             }
         </tbody>
@@ -62,12 +37,10 @@ else
 
 @functions {
     User[] users;
-    UserWithEditable[] editableUsers;
 
     protected override async Task OnInitAsync()
     {
         users = await Http.GetJsonAsync<User[]>("/api/users");
-        editableUsers = users.Select(x => new UserWithEditable { User = x, Editable = false }).ToArray();
     }
 
     protected async Task Delete(int id)
@@ -75,16 +48,5 @@ else
         await Http.DeleteAsync($"/api/users/{id}");
         await OnInitAsync();
         StateHasChanged();
-    }
-
-    protected void Edit(UserWithEditable user)
-    {
-        user.Editable = true;
-    }
-
-    public class UserWithEditable
-    {
-        public User User { get; set; }
-        public bool Editable { get; set; }
     }
 }
