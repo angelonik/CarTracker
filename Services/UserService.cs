@@ -1,7 +1,10 @@
 ﻿using DataAccess;
 using DomainModel;
 using Microsoft.EntityFrameworkCore;
+using Models;
 using Services.Dtos;
+using Services.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +25,13 @@ namespace Services
             return await _dbContext.Users
                 .Select(UserDto.Projection())
                 .ToListAsync();
+        }
+
+        public async Task<PagedResult<UserDto>> GetAllPaged(int page, int perPage)
+        {
+            return await _dbContext.Users
+                .Select(UserDto.Projection())
+                .Paginate(page, perPage);
         }
 
         public async Task<UserWithCarsDto> GetUserWithCars(int id)

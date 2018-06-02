@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DomainModel;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services;
 using Services.Dtos;
 
@@ -19,9 +20,9 @@ namespace AirFiTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserDto>> Get()
+        public async Task<ActionResult<PagedResult<UserDto>>> Get(int page, int perPage)
         {
-            return await _userService.GetAll();
+            return await _userService.GetAllPaged(page, perPage);
         }
 
         [HttpGet("{id:int}")]

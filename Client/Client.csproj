@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RunCommand>dotnet</RunCommand>
     <RunArguments>blazor serve</RunArguments>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,10 +25,12 @@
     <None Include="Pages\Users\Add.cshtml" />
     <None Include="Pages\Users\Edit.cshtml" />
     <None Include="Pages\Users\Users.cshtml" />
+    <None Include="Shared\Pager.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DomainModel\DomainModel.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +51,14 @@
 
   <ItemGroup>
     <BlazorGenerate Remove="Shared\LoadingSpinner.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Shared\Pager.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Shared\Pager.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿@page "/users"
+﻿@page "/users/{Page}"
 @inherits UsersModel
 
 <h2>Users</h2>
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Users)
+        @foreach (var user in users)
         {
             <tr>
                 <UserDetailsRow user="user" />
@@ -25,4 +25,6 @@
         }
     </tbody>
 </table>
-<LoadingSpinner Loading="Loading" />
+<LoadingSpinner Loading="loading" />
+
+<Pager Model="pagedResult.Paging" PageChanged=@PagerPageChanged ></Pager>
